@@ -7,6 +7,7 @@ I think about dimensionality reduction a lot, but currently have no need or urge
 - Some recent explorations of dimensionality reduction, validation and visualization in Python using Jupyter notebooks: <https://github.com/jlmelville/drnb/tree/master/notebooks>.
 - Some Python notebooks that grab a variety of datasets that you might either enjoy running dimensionality reduction methods on, or just useful example code of how to use Python libraries to do some initial data reading and processing: <https://github.com/jlmelville/drnb/tree/master/notebooks/data-pipeline>. A more limited R package: <https://github.com/jlmelville/snedata>.
 - Graph Laplacians, Laplacian Eigenmaps, Diffusion maps and other spectral methods: <https://jlmelville.github.io/smallvis/spectral.html>.
+- A discussion of using my nearest neighbor descent package to diagnose hubness in datasets and their affect on neighbor retrieval: <https://jlmelville.github.io/rnndescent/articles/rnndescent.html>.
 - The smallvis doc page collects some of the above, plus discusses many other aspects of dimensionality reduction, especially t-SNE and variants: <https://jlmelville.github.io/smallvis/>.
 - How to derive the gradient of neighbor-embedding methods: <http://jlmelville.github.io/sneer/gradients.html>.
 - A (currently very out of date) bibliography of dimensionality reduction papers: <http://jlmelville.github.io/sneer/references.html>.
