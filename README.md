@@ -4,6 +4,7 @@ I think about dimensionality reduction a lot, but currently have no need or urge
 
 - A comparison of the cost functions and gradients of t-SNE, LargeVis and UMAP: <https://jlmelville.github.io/smallvis/theory.html> and <https://jlmelville.github.io/uwot/articles/umap-for-tsne.html>.
 - LEOPOLD: an approximation to densMAP available in uwot: <https://jlmelville.github.io/uwot/articles/leopold.html>.
+- A Fisher Information-based approach to estimate the dimensionality of datasets, using only quantities you already calculate during the perplexity calibration stage of t-SNE: <https://jlmelville.github.io/smallvis/idp-theory.html>.
 - Some recent explorations of dimensionality reduction, validation and visualization in Python using Jupyter notebooks: <https://github.com/jlmelville/drnb/tree/master/notebooks>.
 - Some Python notebooks that grab a variety of datasets that you might either enjoy running dimensionality reduction methods on, or just useful example code of how to use Python libraries to do some initial data reading and processing: <https://github.com/jlmelville/drnb/tree/master/notebooks/data-pipeline>. A more limited R package: <https://github.com/jlmelville/snedata>.
 - Graph Laplacians, Laplacian Eigenmaps, Diffusion maps and other spectral methods: <https://jlmelville.github.io/smallvis/spectral.html>.
