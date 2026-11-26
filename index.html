@@ -120,16 +120,60 @@
         </section>
 <a class="experiment-card" id="card-forces" data-experiment="forces" href="#forces"
           aria-labelledby="title-forces action-forces" aria-describedby="summary-forces figure-forces" aria-controls="forces" aria-expanded="false">
-          <span class="card-figure timing-art" aria-hidden="true"><span class="compact-speed"><b>41×</b>faster<small>Barnes–Hut<br>vs exact</small></span><span class="timing-caption">Time for one force calculation</span><span class="timing-row"><span>Exact</span><span class="track"><i class="ink" style="width:100.000%"></i></span><span class="ms">648 ms</span></span><span class="timing-row"><span>Barnes–Hut</span><span class="track"><i class="ink" style="width:2.445%"></i></span><span class="ms">15.9 ms</span></span><span class="timing-row"><span>FFT</span><span class="track"><i class="ink" style="width:1.171%"></i></span><span class="ms">7.6 ms</span></span></span><div class="card-body"><h3 class="card-title" id="title-forces">What does faster t‑SNE cost?</h3>
-          <span class="card-summary" id="summary-forces">I tried two shortcuts for the push between 4,200 points. How much time did each save, and how far off was it?</span>
-          <span class="card-action"><span id="action-forces" data-action="Compare the forces">Compare the forces</span><i class="toggle-mark" aria-hidden="true"></i></span></div><span class="screen-reader" id="figure-forces">On this layout the exact calculation took 648 milliseconds, Barnes–Hut 15.9 milliseconds, and FFT interpolation 7.6 milliseconds.</span>
+          <span class="card-figure crossover-art" aria-hidden="true">
+            <span class="crossover-caption">Time for one force calculation</span>
+            <img src="images/crossover.svg" alt="" width="286" height="104">
+            <span class="crossover-compact">FFT<br>↓<br>Mutual tree</span>
+          </span>
+          <div class="card-body"><h3 class="card-title" id="title-forces">When does a tree beat a grid?</h3>
+          <span class="card-summary" id="summary-forces">I moved the same 12,000 points farther apart. At what point does it pay to switch how t‑SNE calculates repulsion?</span>
+          <span class="card-action"><span id="action-forces" data-action="Find the crossover">Find the crossover</span><i class="toggle-mark" aria-hidden="true"></i></span></div>
+          <span class="screen-reader" id="figure-forces">FFT is quicker on the original layout. The mutual tree is quicker when the coordinates are multiplied by four.</span>
         </a>
         <section class="reveal" id="forces" aria-labelledby="force-title" hidden>
-          <div class="top-actions"><a class="source-link" href="https://github.com/jlmelville/smallvis">Explore the smallvis code ↗</a><button type="button" class="study-close" data-close="forces" aria-label="Close What does faster t‑SNE cost">Close <span aria-hidden="true">×</span></button></div>
+          <div class="top-actions"><a class="source-link" href="https://github.com/jlmelville/smallvis">Explore the smallvis code ↗</a><button type="button" class="study-close" data-close="forces" aria-label="Close When does a tree beat a grid">Close <span aria-hidden="true">×</span></button></div>
           <section class="mini exhibit" aria-labelledby="force-title">
-          <h2 id="force-title" tabindex="-1">How much accuracy does a faster t‑SNE calculation cost?</h2>
-          <p class="dek">I put 4,200 points on a plane and held them still. That leaves one question for <code>smallvis</code>.
-            How much faster can I calculate the push each point feels from all the others, and how far off is the answer?</p>
+          <h2 id="force-title" tabindex="-1">When does a tree beat a grid?</h2>
+          <p class="dek">I put 12,000 points on a plane and calculated the push each one feels in t‑SNE.
+            FFT does this on a grid. A mutual tree groups the points and works out how pairs of groups push each other.
+            What happens if I keep the points and give them more room?</p>
+          <div class="stage">
+            <div class="crossover-grid">
+              <div class="crossover-plot">
+                <h3>Time for one force calculation</h3>
+                <div class="crossover-key" aria-hidden="true"><span>FFT</span><span>Mutual tree</span></div>
+                <svg id="crossover-chart" role="img" aria-label="Force calculation time in milliseconds across layout scales"></svg>
+                <div class="scale-heading"><label for="layout-scale">Layout scale</label><span id="scale-value" aria-hidden="true">1.0×</span></div>
+                <input id="layout-scale" type="range" min="0" max="30" step="1" value="0">
+                <div class="scale-ends"><span>1× · original</span><span>4× each axis</span></div>
+              </div>
+              <aside class="hybrid-result" aria-labelledby="hybrid-heading">
+                <div class="over" id="hybrid-heading">Hybrid choice</div>
+                <h3 id="chosen-method"></h3>
+                <p id="grid-reason"></p>
+                <dl class="crossover-times">
+                  <div><dt>FFT</dt><dd id="fft-time"></dd></div>
+                  <div><dt>Mutual tree</dt><dd id="tree-time"></dd></div>
+                </dl>
+                <button id="jump-switch" type="button"></button>
+              </aside>
+            </div>
+            <details class="method"><summary>What makes the hybrid switch?</summary>
+              <p>As the points move farther apart, FFT needs a larger grid. For each force calculation,
+                <code>smallvis</code> uses FFT if the padded grid has at most 14 cells per point and at
+                most four million cells in total. Otherwise it uses the mutual tree. It checks again
+                on the next calculation, so it can switch back if the layout shrinks. The two timing curves can cross at a different scale.</p>
+              <p>I scaled the same four groups along both axes in steps of 0.1×. Each time shown is
+                the median of seven single-threaded calculations after warm-up, with the two methods
+                run in shuffled order. I used a grid interval of 1 for FFT and θ = 0.35 for the mutual tree.
+                I checked which result the hybrid actually returned at every step. The timings depend
+                on the machine. <a href="study/crossover.R" download>Download the R script</a>.</p>
+            </details>
+          </div>
+          <details class="force-inspector" id="force-inspector">
+            <summary>How close are Barnes–Hut and FFT to the exact force?</summary>
+            <p class="dek">Here I held a smaller set of 4,200 points still so I could check every
+              pair. Pick a point to compare the approximate push with the exact one.</p>
           <div class="stage"><div class="toolbar"><label>Approximation <select id="engine"><option value="bh">Barnes–Hut</option><option value="fft">FFT interpolation</option></select></label>
             <label><span id="setting-label">Opening angle θ</span> <select id="precision"></select></label>
             <output>4,200 points · 1 thread</output></div>
@@ -155,11 +199,12 @@
               These timings describe this layout on this machine. <a href="study/forces.R" download>Download the R script</a>.</p>
             </details>
           </div>
+          </details>
         </section>
           <p class="back-row"><a href="#experiments" data-close="forces">↑ Back to the experiments</a></p>
         </section></div>
           <noscript><p>Read the original <a href="https://jlmelville.github.io/rnndescent/articles/sparse-example.html">Austen experiment</a>,
-          <a href="docs/leopold.html">LEOPOLD experiment</a>, or <a href="study/forces.R">smallvis calculation in R</a>.</p></noscript>
+          <a href="docs/leopold.html">LEOPOLD experiment</a>, or <a href="study/crossover.R">FFT and mutual-tree comparison in R</a>.</p></noscript>
         </section>
         <section class="software" id="software" aria-labelledby="software-title">
           <h2 id="software-title">Software</h2>

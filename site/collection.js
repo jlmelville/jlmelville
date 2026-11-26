@@ -4,7 +4,8 @@
   );
   const assets = {
     austen: ['study/austen-data.js', 'site/point-map.js', 'site/austen.js'],
-    forces: ['study/forces-data.js', 'site/point-map.js', 'site/forces.js']
+    forces: ['study/crossover-data.js', 'site/crossover.js'],
+    'force-inspector': ['study/forces-data.js', 'site/point-map.js', 'site/forces.js']
   };
   const scripts = new Map();
   const studies = new Map();
@@ -135,6 +136,11 @@
       event.preventDefault();
       event.target.click();
     }
+  });
+
+  const inspector = document.getElementById('force-inspector');
+  inspector.addEventListener('toggle', () => {
+    if (inspector.open) start(inspector);
   });
 
   window.addEventListener('hashchange', readLocation);
