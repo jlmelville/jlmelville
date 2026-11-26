@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="description" content="James Melville on dimensionality reduction, nearest neighbors, and the details that turn a paper into working software.">
+    <title>James Melville · Software and experiments</title>
+    <link rel="stylesheet" href="site/profile.css">
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="page">
+      <header class="masthead">
+        <a class="wordmark" href="#main">James Melville</a>
+        <nav aria-label="Main navigation">
+          <a href="#writing">Writing</a>
+          <a href="#software">Software</a>
+          <a href="https://github.com/jlmelville">GitHub <span aria-hidden="true">↗</span></a>
+        </nav>
+      </header>
+      <main id="main">
+        <div class="opening">
+          <section class="intro" aria-labelledby="intro-title">
+            <h1 id="intro-title">I think about dimensionality reduction a lot.</h1>
+            <p>I wrote and maintain <a href="https://github.com/jlmelville/uwot">uwot</a>, an
+              implementation of UMAP in R and C++. If you’ve made a UMAP plot of single-cell data
+              with <a href="https://satijalab.org/seurat/reference/runumap">Seurat</a>, you’ve
+              probably used it.</p>
+          </section>
+          <section class="reading" id="writing" aria-labelledby="writing-title">
+            <h2 class="rubric" id="writing-title">Selected writing</h2>
+            <article>
+              <h3><a href="https://jlmelville.github.io/uwot/articles/umap-for-tsne.html">UMAP for t-SNE users</a></h3>
+              <p>I got the details from the Python code and from asking Leland McInnes. Much of this
+                ended up in the implementation appendix of the
+                <a href="https://arxiv.org/abs/1802.03426">UMAP paper</a>.</p>
+            </article>
+            <article>
+              <h3><a href="https://jlmelville.github.io/rnndescent/articles/sparse-example.html">Jane Austen’s nearest neighbors</a></h3>
+              <p>I wanted an example of working with sparse data and ended up looking for the most
+                Jane Austen-like passage in six novels.</p>
+            </article>
+            <article>
+              <h3><a href="https://jlmelville.github.io/mize/articles/nesterov.html">Nesterov momentum</a></h3>
+              <p>Several different-looking updates ought to give the same answer. Checking that took
+                a bit of working out.</p>
+            </article>
+          </section>
+        </div>
+        <section class="feature" aria-labelledby="experiment-title">
+          <div class="feature-intro">
+            <div>
+              <h2 id="experiment-title">Where did the density go?</h2>
+              <p>I gave UMAP two groups of 5,000 points. In 50 dimensions the blue group has ten
+                times the standard deviation of the orange one. How much of that difference makes
+                it onto the page? Try changing the density scale in LEOPOLD, my approximation to
+                densMAP in <code>uwot</code>.</p>
+            </div>
+            <a class="experiment-link" href="https://jlmelville.github.io/uwot/articles/leopold.html">Read the original experiments <span aria-hidden="true">↗</span></a>
+          </div>
+          <iframe class="leopold-explorer" src="docs/leopold.html?embed"
+            title="Explore how LEOPOLD changes the spread of two groups"></iframe>
+        </section>
+        <section class="software" id="software" aria-labelledby="software-title">
+          <h2 id="software-title">Software</h2>
+          <dl class="catalog">
+            <div>
+              <dt>Run UMAP in R</dt>
+              <dd><a href="https://github.com/jlmelville/uwot">uwot</a> fits embeddings, works with
+                labels and projects new observations into an existing embedding.</dd>
+            </div>
+            <div>
+              <dt>Find nearest neighbors</dt>
+              <dd><a href="https://github.com/jlmelville/rnndescent">rnndescent</a> works with
+                dense and sparse data. <a href="https://github.com/jlmelville/rcpphnsw">RcppHNSW</a>
+                brings <code>hnswlib</code> to R. Both can supply neighbors to <code>uwot</code>.</dd>
+            </div>
+            <div>
+              <dt>Compare embeddings</dt>
+              <dd>I use <a href="https://github.com/jlmelville/smallvis">smallvis</a> to change
+                one thing at a time in R. For larger 2D embeddings, its C++ code can approximate
+                the repulsive forces with FFT interpolation, a Barnes–Hut tree or a mutual tree.
+                In Python I use <a href="https://github.com/jlmelville/drnb">drnb</a> to compare
+                methods on the same datasets.</dd>
+            </div>
+            <div>
+              <dt>Optimize an objective</dt>
+              <dd><a href="https://github.com/jlmelville/mize">mize</a> implements unconstrained
+                optimizers in R. Its sibling <a href="https://github.com/jlmelville/funconstrain">funconstrain</a>
+                gives me 35 test problems from Moré, Garbow and Hillstrom to try them on.</dd>
+            </div>
+            <div>
+              <dt>Check a package change</dt>
+              <dd><a href="https://github.com/jlmelville/revdeprunner">revdeprunner</a> helps me
+                plan what needs building. It uses r-lib’s
+                <a href="https://github.com/r-lib/revdepcheck">revdepcheck</a> to run the checks.</dd>
+            </div>
+          </dl>
+        </section>
+        <div class="notes">
+          <section aria-labelledby="more-title">
+            <h2 id="more-title">More to read</h2>
+            <ul>
+              <li><a href="https://jlmelville.github.io/rnndescent/articles/hubness.html">Hubness and nearest neighbor search</a></li>
+              <li><a href="https://jlmelville.github.io/smallvis/spectral.html">Graph Laplacians, eigenmaps and diffusion maps</a></li>
+              <li><a href="https://jlmelville.github.io/smallvis/">The smallvis experiments</a></li>
+            </ul>
+          </section>
+          <section aria-labelledby="lately-title">
+            <h2 id="lately-title">Current interests</h2>
+            <p>I’m experimenting with <a href="https://github.com/jlmelville/codex-workflows">Codex skills</a>.
+              Can Codex edit a vignette and have it still sound like me? My
+              <a href="https://github.com/jlmelville/codex-workflows/tree/main/skills/technical-writing">technical writing skill</a>
+              gives it a few of my articles to read first.</p>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

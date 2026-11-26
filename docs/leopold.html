@@ -309,6 +309,21 @@
           gap: 5px;
         }
       }
+      .embedded {
+        background: transparent;
+      }
+      .embedded main {
+        max-width: none;
+        padding: 0;
+      }
+      .embedded main > nav,
+      .embedded main > header {
+        display: none;
+      }
+      .embedded details {
+        margin-bottom: 0;
+        border-bottom: 0;
+      }
     </style>
   </head>
   <body>
@@ -530,6 +545,24 @@
     <script>
       (() => {
         const root = document.getElementById("leopold");
+        if (new URLSearchParams(location.search).has("embed")) {
+          document.documentElement.classList.add("embedded");
+          root.querySelector("#density").value = "0";
+          const base = document.createElement("base");
+          base.target = "_top";
+          document.head.append(base);
+
+          // On the homepage, let the experiment grow when the methods are opened.
+          const frame = window.frameElement;
+          if (frame) {
+            document.documentElement.style.overflow = "hidden";
+            const fitFrame = () => {
+              frame.style.height = Math.ceil(root.getBoundingClientRect().height) + "px";
+            };
+            fitFrame();
+            new ResizeObserver(fitFrame).observe(root);
+          }
+        }
         const el = (id) => root.querySelector("#" + id);
         const data = JSON.parse(document.getElementById("leopold-data").textContent);
         const canvas = el("cloud"),

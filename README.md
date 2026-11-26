@@ -12,30 +12,34 @@ I gave UMAP two groups of 5,000 points each. In the original 50 dimensions the b
 times the standard deviation of the orange one. Here's what happens when I turn up the density
 scaling in [Leopold][leopold], my approximation to densMAP in `uwot`.
 
-<picture>
-  <source media="(max-width: 700px)" srcset="images/leopold-spread-mobile.png">
-  <img src="images/leopold-spread.png"
-    alt="Wide-to-tight spread starts at 10× in 50 dimensions. UMAP gives 1.0×.
-    LEOPOLD gives 9.7× at density scale 0.5 and 66.9× at scale 1.">
-</picture>
+<a href="https://jlmelville.github.io/jlmelville/#experiment-title">
+  <picture>
+    <source media="(max-width: 700px)" srcset="images/leopold-spread-mobile.png">
+    <img src="images/leopold-spread.png"
+      alt="Wide-to-tight spread starts at 10× in 50 dimensions. UMAP gives 1.0×.
+      LEOPOLD gives 9.7× at density scale 0.5 and 66.9× at scale 1.">
+  </picture>
+</a>
 
 Ordinary UMAP gives the two groups about the same amount of room. Halfway up the scale I get most
 of my tenfold difference back. Turn it all the way up and that little orange dot still contains
 5,000 points.
 
-[Download the interactive figure (ZIP)][leopold-figure] and open `leopold.html` in a browser to
-try all eleven settings or see where the groups actually landed. The [original experiments][leopold]
-include handwritten digits and single-cell data too.
+[Try all eleven settings on my homepage][leopold-live] or [download the offline figure
+(ZIP)][leopold-figure]. The [original experiments][leopold] include handwritten digits and
+single-cell data too.
 
 ### Software
 
 - Two of my R packages can find nearest neighbors for `uwot`. [rnndescent] implements nearest
   neighbor descent and works with sparse data. [RcppHNSW] is my R interface to `hnswlib`.
 - I use [smallvis] to change one thing at a time, e.g. hold the starting positions fixed and see
-  what changing the cost function does. In Python I use [drnb] to try different methods on the same
-  data and reuse the neighbors I've already calculated.
+  what changing the cost function does. For larger 2D embeddings, its C++ code can approximate the
+  repulsive forces with FFT interpolation, a Barnes–Hut tree or a mutual tree. In Python I use
+  [drnb] to try different methods on the same data and reuse the neighbors I've already calculated.
 - [mize] is my R package for numerical optimization (you have to optimize those embeddings
-  somehow).
+  somehow). Its sibling [funconstrain] gives me 35 test problems from Moré, Garbow and Hillstrom
+  to try the optimizers on.
 - [revdeprunner] helps me plan checks on the R packages that depend on mine. I can see which
   packages need building before I start. It uses r-lib's [revdepcheck] to run the checks against
   the released and development versions of my package.
@@ -74,6 +78,7 @@ these packages. For example, can Codex edit a vignette and have it still sound l
 [seurat]: https://satijalab.org/seurat/reference/runumap
 [umap-for-tsne]: https://jlmelville.github.io/uwot/articles/umap-for-tsne.html
 [paper]: https://arxiv.org/abs/1802.03426
+[leopold-live]: https://jlmelville.github.io/jlmelville/#experiment-title
 [leopold-figure]: docs/leopold.zip?raw=true
 [leopold]: https://jlmelville.github.io/uwot/articles/leopold.html
 [rnndescent]: https://github.com/jlmelville/rnndescent
@@ -83,6 +88,7 @@ these packages. For example, can Codex edit a vignette and have it still sound l
 [smallvis]: https://github.com/jlmelville/smallvis
 [drnb]: https://github.com/jlmelville/drnb
 [mize]: https://github.com/jlmelville/mize
+[funconstrain]: https://github.com/jlmelville/funconstrain
 [nesterov]: https://jlmelville.github.io/mize/articles/nesterov.html
 [revdeprunner]: https://github.com/jlmelville/revdeprunner
 [revdepcheck]: https://github.com/r-lib/revdepcheck
