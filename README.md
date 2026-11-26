@@ -6,21 +6,26 @@ If you're coming to UMAP from t-SNE, I [wrote up how the two are related][umap-f
 the details from the Python code and from asking Leland McInnes. Much of that material ended up in
 the implementation appendix of the [UMAP paper][paper].
 
-### Can you tell which cluster is denser?
+### Where did the density go?
 
-Here are two groups of 5,000 points each. In the original 50 dimensions, one group has ten times the
-standard deviation of the other. See if you can tell which is which from the first plot.
+I gave UMAP two groups of 5,000 points each. In the original 50 dimensions the blue group has ten
+times the standard deviation of the orange one. Here's what happens when I turn up the density
+scaling in [Leopold][leopold], my approximation to densMAP in `uwot`.
 
-[<img src="images/two-clusters-umap.png" width="230"
-  alt="UMAP shows two clusters of similar size.">][leopold]
-[<img src="images/two-clusters-leopold.png" width="230"
-  alt="Leopold shows a broad blue cluster and a tiny orange one.">][leopold]
+<picture>
+  <source media="(max-width: 700px)" srcset="images/leopold-spread-mobile.png">
+  <img src="images/leopold-spread.png"
+    alt="Wide-to-tight spread starts at 10× in 50 dimensions. UMAP gives 1.0×.
+    LEOPOLD gives 9.7× at density scale 0.5 and 66.9× at scale 1.">
+</picture>
 
-The orange group is the denser one. UMAP gives the two groups about the same amount of room. For
-the second plot I used [Leopold][leopold], my approximation to densMAP, which tries to preserve
-differences in local density. It gets the sizes the right way round, although shrinking 5,000
-points to a little orange dot is probably overdoing it. [I tried it on a few less artificial
-datasets too][leopold], including handwritten digits and single-cell data.
+Ordinary UMAP gives the two groups about the same amount of room. Halfway up the scale I get most
+of my tenfold difference back. Turn it all the way up and that little orange dot still contains
+5,000 points.
+
+[Download the interactive figure (ZIP)][leopold-figure] and open `leopold.html` in a browser to
+try all eleven settings or see where the groups actually landed. The [original experiments][leopold]
+include handwritten digits and single-cell data too.
 
 ### Software
 
@@ -69,6 +74,7 @@ these packages. For example, can Codex edit a vignette and have it still sound l
 [seurat]: https://satijalab.org/seurat/reference/runumap
 [umap-for-tsne]: https://jlmelville.github.io/uwot/articles/umap-for-tsne.html
 [paper]: https://arxiv.org/abs/1802.03426
+[leopold-figure]: docs/leopold.zip?raw=true
 [leopold]: https://jlmelville.github.io/uwot/articles/leopold.html
 [rnndescent]: https://github.com/jlmelville/rnndescent
 [RcppHNSW]: https://github.com/jlmelville/rcpphnsw
