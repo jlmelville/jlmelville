@@ -28,7 +28,7 @@ fits <- lapply(settings, function(s) {
                        dens_scale = if (s == 0) NULL else s,
                        seed = 42, n_sgd_threads = 1, n_threads = 1,
                        verbose = FALSE)
-  message(sprintf("  wide / tight RMS radius: %.3f", spread_ratio(coords)))
+  message(sprintf("  blue / orange RMS radius: %.3f", spread_ratio(coords)))
   coords
 })
 
@@ -102,7 +102,7 @@ draw_figure <- function(path, mobile = FALSE) {
     }
   }
   margin <- if (mobile) 17 else 27
-  label("Wide-to-tight spread", margin, if (mobile) 28 else 34,
+  label("Cluster radius ratio", margin, if (mobile) 28 else 34,
         if (mobile) 25 else 31, bold = TRUE)
   label(sprintf("50D input  %.1f×", input_ratio), w-margin, if (mobile) 29 else 35,
         if (mobile) 15 else 19, blue, TRUE, "right")
@@ -112,9 +112,9 @@ draw_figure <- function(path, mobile = FALSE) {
     grid.circle(u(x), u(y), r = unit(4, "points"), gp = gpar(fill=color, col=NA))
     label(text, x+11, y, if (mobile) 14 else 17, mid)
   }
-  legend_item(margin+4, if (mobile) 77 else 87, colors[1], "Wide input group")
+  legend_item(margin+4, if (mobile) 77 else 87, colors[1], "More diffuse in 50D")
   legend_item(margin+if (mobile) 176 else 210, if (mobile) 77 else 87, colors[2],
-              "Tight input group")
+              "Denser in 50D")
   chosen <- match(c(0, 0.5, 1), settings)
   for (j in 1:3) {
     fit <- prepared[[chosen[j]]]
@@ -138,9 +138,13 @@ draw_figure <- function(path, mobile = FALSE) {
     }
   }
   if (!mobile) line(margin, 306, w-margin, 306)
-  label(if (mobile) "Each pair is centered and scaled to its wide group."
-        else "Groups centered separately. Each pair uses its wide group as the unit of spread.",
-        margin, if (mobile) 541 else 325, if (mobile) 14 else 17, mid)
+  if (mobile) {
+    label("Blue radius ÷ orange radius.", margin, 528, 14, mid)
+    label("Each group is centered. Blue sets the scale.", margin, 549, 14, mid)
+  } else {
+    label("Blue radius ÷ orange radius. Each group is centered. Blue sets the scale.",
+          margin, 325, 17, mid)
+  }
 }
 draw_figure("images/leopold-spread.png")
 draw_figure("images/leopold-spread-mobile.png", mobile = TRUE)

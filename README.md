@@ -16,7 +16,8 @@ scaling in [Leopold][leopold], my approximation to densMAP in `uwot`.
   <picture>
     <source media="(max-width: 700px)" srcset="images/leopold-spread-mobile.png">
     <img src="images/leopold-spread.png"
-      alt="Wide-to-tight spread starts at 10× in 50 dimensions. UMAP gives 1.0×.
+      alt="The ratio of the blue cluster’s radius to the orange cluster’s is 10× in 50 dimensions.
+      UMAP gives 1.0×.
       LEOPOLD gives 9.7× at density scale 0.5 and 66.9× at scale 1.">
   </picture>
 </a>

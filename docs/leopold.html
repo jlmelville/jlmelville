@@ -172,7 +172,7 @@
         border-radius: 50%;
         background: #256687;
       }
-      .legend .tight {
+      .legend .dense {
         background: #cb5829;
       }
       .plot {
@@ -378,8 +378,8 @@
               >
             </div>
             <div class="legend">
-              <span><i></i>Wide input group</span
-              ><span><i class="tight"></i>Tight input group</span>
+              <span><i></i>More diffuse in 50D</span
+              ><span><i class="dense"></i>Denser in 50D</span>
             </div>
             <canvas
               class="plot"
@@ -390,7 +390,7 @@
             <p class="fig-note" id="plot-note"></p>
           </section>
           <section class="response" aria-labelledby="response-title">
-            <h2 id="response-title">Wide-to-tight spread</h2>
+            <h2 id="response-title">Cluster radius ratio</h2>
             <div id="ratio">9.7×</div>
             <p id="compared"></p>
             <svg
@@ -399,17 +399,17 @@
               role="img"
               aria-labelledby="curve-title curve-desc"
             >
-              <title id="curve-title">Spread ratio across density settings</title>
+              <title id="curve-title">Cluster radius ratio across density settings</title>
               <desc id="curve-desc"></desc>
             </svg>
           </section>
         </div>
       </section>
       <details>
-        <summary>How I measured spread</summary>
+        <summary>How I measured the radii</summary>
         <p>
           For each group I measured the root mean square distance from a point to the group’s
-          center. Dividing the wide group’s spread by the tight group’s gives the ratio. I used all
+          center. I divided the blue group’s radius by the orange group’s radius. I used all
           5,000 points per group, in all 50 dimensions for the input and in both dimensions for the
           embeddings. This measures the overall size of a group. LEOPOLD adjusts local density, so
           matching the input ratio here is a useful check on this example.
@@ -421,7 +421,7 @@
           >, all with the same exact neighbors and random starting coordinates. I used seed 42, 30
           neighbors, <code>min_dist = 0.1</code>, 700 epochs and a single optimizer thread. Scale
           zero runs ordinary UMAP. The response chart uses a logarithmic scale: equal vertical steps
-          multiply the spread by the same amount. Each dot is a setting I actually ran.
+          multiply the radius ratio by the same factor. Each dot is a setting I actually ran.
           <a href="https://github.com/jlmelville/jlmelville/blob/main/tools/build-leopold.R"
             >Rebuild the experiment in R</a
           >.
@@ -429,7 +429,7 @@
       </details>
       <div id="announcement" class="sr" role="status" aria-live="polite"></div>
       <noscript
-        >Enable JavaScript to explore the fits. The wide-to-tight spread is 1.0× for UMAP, 9.7× at
+        >Enable JavaScript to explore the fits. The cluster radius ratio is 1.0× for UMAP, 9.7× at
         scale 0.5, and 66.9× at scale 1.</noscript
       >
     </main>
@@ -649,7 +649,7 @@
               ctx.textAlign = "center";
               ctx.font = "13px Inter, Segoe UI, sans-serif";
               ctx.fillStyle = "#465e62";
-              ctx.fillText(g === 0 ? "Wide group" : "Tight group", cx, h - 5);
+              ctx.fillText(g === 0 ? "More diffuse in 50D" : "Denser in 50D", cx, h - 5);
             }
           });
           canvas.setAttribute(
@@ -657,12 +657,12 @@
             (centered ? "Centered groups" : "Original embedding") +
               " at density scale " +
               fit.scale +
-              ". Wide group spread divided by tight group spread: " +
+              ". Blue radius divided by orange radius: " +
               ratioText(fit.ratio) +
               ".",
           );
           el("plot-note").textContent = centered
-            ? "The groups are centered separately. The wide group sets the scale in each pair."
+            ? "The groups are centered separately. The blue group’s radius sets the scale in each pair."
             : "All 10,000 points in their fitted positions. Each view is scaled to fit the panel.";
         }
         const ns = "http://www.w3.org/2000/svg",
@@ -757,7 +757,7 @@
           selected.setAttribute("cx", px(fit.scale));
           selected.setAttribute("cy", py(fit.ratio));
           el("announcement").textContent =
-            "Density scale " + s + ". Wide-to-tight spread " + r + ".";
+            "Density scale " + s + ". Cluster radius ratio " + r + ".";
           drawClouds();
         }
         input.addEventListener("input", update);
