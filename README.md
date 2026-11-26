@@ -40,9 +40,9 @@ single-cell data too.
 - [mize] is my R package for numerical optimization (you have to optimize those embeddings
   somehow). Its sibling [funconstrain] gives me 35 test problems from Moré, Garbow and Hillstrom
   to try the optimizers on.
-- [revdeprunner] helps me plan checks on the R packages that depend on mine. I can see which
-  packages need building before I start. It uses r-lib's [revdepcheck] to run the checks against
-  the released and development versions of my package.
+- [revdeprunner] smooths out a few rough edges I hit getting my R packages ready for CRAN. It uses
+  r-lib's [revdepcheck] to check the packages that depend on mine, and lets me see what needs
+  building before I start. It's also my first entirely vibe-coded package.
 
 ### Selected writing
 
@@ -55,9 +55,11 @@ single-cell data too.
 
 ### Current interests
 
-I'm experimenting with [Codex skills][codex-workflows] for the work that goes into maintaining
-these packages. For example, can Codex edit a vignette and have it still sound like me? My
-[technical writing skill][technical-writing] gives it a few of my articles to read first.
+How much can a Codex skill learn from the jobs I already use it for? I can't afford a big suite of
+evals, so in [codex-workflows] I'm trying an idea borrowed from agile retrospectives. Some skills
+help with jobs like [editing a vignette][technical-writing]. Others guide the agents as they look
+back over a task, decide which observations warrant changing a skill, and check on later tasks
+whether it helped.
 
 <details>
 <summary>More writing, notebooks and datasets</summary>
