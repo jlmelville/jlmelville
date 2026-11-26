@@ -1,8 +1,10 @@
 I wrote [uwot], the R package [Seurat] uses by default to make UMAP plots.
 
+### [My homepage — experiments, software, and writing][homepage]
+
 The little orange dot in the last panel contains 5,000 points. So does the blue cloud beside it.
 In the original data the blue group has ten times the radius of the orange one.
-[Try the slider on my homepage][density] and see when the plot starts to exaggerate that difference.
+[Change the density scale][density] to see when the plot starts to exaggerate that difference.
 
 <a href="https://jlmelville.github.io/jlmelville/#density">
   <picture>
@@ -19,6 +21,7 @@ Here's the [R code that made the figure][source]. If you prefer points you can r
 
 [uwot]: https://github.com/jlmelville/uwot
 [Seurat]: https://satijalab.org/seurat/reference/runumap
+[homepage]: https://jlmelville.github.io/jlmelville/
 [density]: https://jlmelville.github.io/jlmelville/#density
 [source]: https://github.com/jlmelville/jlmelville/blob/main/tools/build-leopold.R
 [austen]: https://jlmelville.github.io/jlmelville/#austen
