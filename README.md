@@ -6,7 +6,7 @@ The little orange dot in the last panel contains 5,000 points. So does the blue 
 In the original data the blue group has ten times the radius of the orange one.
 [Change the density scale][density] to see when the plot starts to exaggerate that difference.
 
-<a href="https://jlmelville.github.io/jlmelville/#density">
+<a href="https://jlmelville.github.io/#density">
   <picture>
     <source media="(max-width: 700px)" srcset="images/leopold-spread-mobile.png">
     <img src="images/leopold-spread.png"
@@ -21,7 +21,7 @@ Here's the [R code that made the figure][source]. If you prefer points you can r
 
 [uwot]: https://github.com/jlmelville/uwot
 [Seurat]: https://satijalab.org/seurat/reference/runumap
-[homepage]: https://jlmelville.github.io/jlmelville/
-[density]: https://jlmelville.github.io/jlmelville/#density
-[source]: https://github.com/jlmelville/jlmelville/blob/main/tools/build-leopold.R
-[austen]: https://jlmelville.github.io/jlmelville/#austen
+[homepage]: https://jlmelville.github.io/
+[density]: https://jlmelville.github.io/#density
+[source]: https://github.com/jlmelville/jlmelville.github.io/blob/main/tools/build-leopold.R
+[austen]: https://jlmelville.github.io/#austen
